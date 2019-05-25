@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       
+       
+        <zujian_all></zujian_all>
+
+    </div>
+
+    <script>
+
+        // 1、定义局部组件
+        var zujian_a = {
+            template: "<div>局部组件</div>"
+        }
+
+        Vue.component(
+            'zujian_all',
+            {
+                // 3、使用局部组件
+                template: '<div>全局组件 <zujian_a>局部组件</zujian_a> </div>',
+
+                // 2、注册局部组件
+                components: {
+                    zujian_a
+                }
+            }
+        )
+
+        new Vue({
+            el: "#app",
+
+        })
+    </script>
+</body>
+</html>

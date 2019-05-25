@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       
+       
+        <zujian_all></zujian_all>
+
+    </div>
+
+    <script>
+
+        // 局部组件
+        var zujian_a = {
+            template: "<div>局部组件 {{ btitle }} {{ pos }} </div>",
+            data:function(){
+                return {
+                    btitle: '局部组件属性',
+                }
+            },
+            
+            // 1、局部调用全局属性
+            props:['pos']
+
+        }
+
+        // 全局组件
+        Vue.component(
+            'zujian_all',
+            {
+                // 2、绑定全局属性
+                template: '<div>全局组件 {{ name }} <zujian_a v-bind:pos="name">局部组件</zujian_a> </div>',
+                components: {
+                    zujian_a
+                },
+                data:function(){
+                    return {
+                        name: "全局组件属性"
+                    }
+                }
+            }
+        )
+
+        new Vue({
+            el: "#app",
+
+        })
+    </script>
+</body>
+</html>

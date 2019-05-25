@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>01_vue基础语法</title>
+    <style type="text/css">
+        
+    </style>
+
+    <script src="../js/vue.js"></script>
+
+    <script>
+
+        // 窗口加载完再执行
+        window.onload = function(){
+
+            var vm = new Vue({
+                // 标签对象
+                el: ".box",
+                // 对象的属性
+
+                data: {
+                    content: "01_vue入门",
+                    content01: "",
+                    content02: "",
+                    like: [],
+                    url: "http://www.baidu.com",
+                    linkdata: "百度",
+                    count: 0,
+                    dataList: ['test1','test2','test3','test4'],
+                    address: "北京",
+                    objData: {
+                        "name": "老王",
+                        "age": 20,
+                    },
+                    objList: [
+                    {
+                        "name": "老王",
+                        "age": 20,
+                    },
+                    {
+                        "name": "老宋",
+                        "age": 30,
+                    }
+                    ],
+                },
+
+                // 对象的方法
+                methods: {
+                    fnCount: function(){
+                        this.count += 1
+                        if (this.count == 11){
+                            this.count = 0
+                        }
+                    }
+                }
+
+            })
+        }
+
+    </script>
+
+</head>
+<body>
+        
+        <div class="box">
+            
+            <!-- 1、模版语言 -->
+            <p>{{content}}</p>
+
+            <!-- 2、属性操作 -->
+                <p>
+                    <!-- 常规写法 -->
+                    <a href="http://www.baidu.com">百度1</a>
+                    <!-- vue写法  target: 表示另外一个窗口打开-->
+                    <a v-bind:href="url" target="_blank">百度2</a>
+                    <!-- vue简写 -->
+                    <a :href="url" target="_blank">{{linkdata}}</a>  
+                </p>
+            
+            <!-- 3、事件监听 -->
+                <p>
+                    <!-- vue写法 -->
+                    <button v-on:click="fnCount">计数器: {{count}}</button>
+                    <!-- vue简写 -->
+                    <button @click="fnCount">计数器: {{count}}</button>
+                </p>
+            
+            <!-- 4、if语句 -->
+            <p v-if="count < 10">{{count}}</p>
+            <p v-else >计数已达上限</p>
+
+            <!-- 5、for循环 - 列表 -->
+            <p v-for="item in dataList">{{item}}</p>
+            <p v-for="(item,index) in dataList">index: {{index}} => item: {{item}}</p>
+
+            <!-- 6、for循环 - 对象 -->
+            <p v-for="value in objData">value: {{value}}</p>
+            <p v-for="(value, key) in objData">key: {{key}} => value: {{value}}</p>
+
+            <!-- 7、for循环 -列表嵌套对象 -->
+            <p v-for="obj in objList">{{obj.name}}</p>
+
+            <!-- 8、双向绑定-表单 -->
+                <!-- 8.1、单行文本框 -->
+                <input type="text" v-model="content01">
+                <p>{{content01}}</p>
+
+                <!-- 8.2、多行文本框 -->
+                <textarea v-model="content02"></textarea>
+                <p>{{content02}}</p>
+
+                <!-- 8.3、多选框 -->
+                <input type="checkbox" name="lk" value="吃饭" v-model='like'>吃饭
+                <input type="checkbox" name="lk" value="睡觉" v-model='like'>睡觉
+                <input type="checkbox" name="lk" value="打豆豆" v-model='like'>打豆豆
+                <p>{{like}}</p> 
+
+                <!-- 8.4、下拉框 -->
+                <select name="addr" v-model="address">
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="广州">广州</option>
+                    <option value="深圳">深圳</option>
+                </select>
+                <p>{{address}}</p>
+        </div>
+        
+</body>
+</html>
